@@ -1,0 +1,31 @@
+﻿
+@*
+    MyBlog Business katmanında RegisterDTO da ki özelliklere bakarak özellikleri buraya ekleriz.
+    @using MyBlog.Business.Concrete.DTOs // bunları kesinlikle tanıtmamız lazım hangisi üzerinde çalışıyorsak eğer
+    @model RegisterDto
+
+    bunları burada da tanımlayabilirdik ancak her view için ayrı ayrı yapmak yerine Views klasöründe _ViewImported da tanımlarız
+    o sayfada olanların yanına  @using MyBlog.Business.Concrete.DTOs ekledik yolunu belirledik.
+
+*@
+@{
+}
+ @model RegisterDto
+
+<form asp-action="Register" method="post">
+    <div asp-validation-summary="All">
+
+
+    </div>
+    <input placeholder="First Name" asp-for="@Model.FirstName" /> <br />
+    <input placeholder="Last Name" asp-for="@Model.LastName" /> <br />
+    <input placeholder="Phone Number" asp-for="@Model.PhoneNumber"/> <br />
+    <input placeholder="User Name" asp-for="@Model.UserName"/> <br />
+    <input placeholder="Email" asp-for="@Model.Email"/> <br />
+    <input placeholder="Password" asp-for="@Model.Password"/> <br />
+
+    <button>Üye Ol</button>
+
+
+</form>
+    
