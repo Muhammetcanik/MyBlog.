@@ -63,17 +63,13 @@ public class AuthManager : IAuthService
                 IsActive = true,
             };
 
-          result = await _userManager.AddToRoleAsync(appUser, "author");
+            result = await AddRoleToUser(appUser, "author");
 
         }
 
         else
         {
-         
-            
-           
-            
-            await _userManager.AddToRoleAsync(appUser, "user");
+            result = await AddRoleToUser(appUser,"user");
         }
 
         return result;

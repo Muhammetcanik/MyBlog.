@@ -20,6 +20,21 @@ namespace MyBlog.WebUI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            var result = await _authService.LoginAsync(loginDto);
+
+            if (result.Succeeded)
+                return RedirectToAction("Index", "Post");
+
+            return View(loginDto); // başarısızsa kendi içine bassın
+
+
+        }
+
+
+
         [HttpGet]
         public IActionResult Register() 
         {
@@ -39,6 +54,15 @@ namespace MyBlog.WebUI.Controllers
             }
             return View(registerDto); // eğer başarısızsa kendi içine bassın
 
+
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+
+            await _authService.LogoutAsync();
+
+            return RedirectToAction(nameof(Login)); // şifre başarırsızsa login safyasına atarız.
 
         }
     }
