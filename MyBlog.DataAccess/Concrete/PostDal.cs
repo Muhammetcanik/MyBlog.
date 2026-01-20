@@ -2,15 +2,27 @@
 using MyBlog.DataAccess.Abstract;
 using MyBlog.DataAccess.Concrete.Contexts;
 using MyBlog.Entities.Concrete;
+using System.Data.Entity;
 
 
 namespace MyBlog.DataAccess.Concrete
 {
     public class PostDal : GenericRepository<Post>, IPostDal 
     {
+
+        private readonly MyBlogDbContext _context;
+
         public PostDal(MyBlogDbContext context) : base(context)
         {
-            
+            _context = context;
+        }
+
+        public List<Post> PostsWithAuthors() 
+        {
+
+            return _context.Posts.Include(p => p.Author).ToList();
+                    
+        
         }
 
 

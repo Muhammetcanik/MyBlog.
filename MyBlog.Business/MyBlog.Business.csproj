@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyBlog.DataAccess\MyBlog.DataAccess.csproj" />
     <ProjectReference Include="..\MyBlog.Entities\MyBlog.Entities.csproj" />
   </ItemGroup>
 

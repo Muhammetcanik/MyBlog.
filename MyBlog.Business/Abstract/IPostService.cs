@@ -9,7 +9,7 @@ namespace MyBlog.Business.Abstract
 {
     public interface IPostService
     {
-        Task<List<PostDto>> GetAllPostsAsync();
+            List<PostDto> GetAllPosts();
 
     }
 }
