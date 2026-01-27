@@ -9,7 +9,9 @@ namespace MyBlog.Business.Abstract
 {
     public interface IPostService
     {
-            List<PostDto> GetAllPosts();
+        List<PostDto> GetAllPosts();
+
+        PostDto GetPostById(Guid id);
 
     }
 }

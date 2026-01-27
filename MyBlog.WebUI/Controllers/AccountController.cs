@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace MyBlog.WebUI.Controllers
 {
-    public class AuthController : Controller
+    public class AccountController : Controller
     {
         private readonly IAuthService _authService;
 
 
-        public AuthController(IAuthService authService)  // dependency injection kullandık constraktor ile private ile birlikte.
+        public AccountController(IAuthService authService)  // dependency injection kullandık constraktor ile private ile birlikte.
         {
             _authService = authService;
         }

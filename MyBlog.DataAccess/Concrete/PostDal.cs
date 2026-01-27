@@ -25,6 +25,7 @@ namespace MyBlog.DataAccess.Concrete
         
         }
 
-
+        public Post PostWithAuthor(Guid postId) // post ıd göre yazar bilgisi ile getir
+        => _context.Posts.Include(p => p.Author).FirstOrDefault(x => x.Id == postId);
     }
 }

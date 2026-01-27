@@ -1,7 +1,7 @@
 ﻿using MyBlog.Business.Abstract;
 using MyBlog.Business.Concrete.DTOs;
 using MyBlog.DataAccess.Abstract;
-
+using MyBlog.Entities.Concrete;
 
 namespace MyBlog.Business.Concrete
 {
@@ -26,6 +26,22 @@ namespace MyBlog.Business.Concrete
 
 
             }).ToList();
+        }
+
+        public PostDto GetPostById(Guid id)
+        {
+            Post post = _postDal.PostWithAuthor(id);
+
+            return new PostDto()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                AuthorFullName = post.Author.FullName,
+                CreatedAt = post.CreatedDate,
+
+            };
+
         }
     }
 }

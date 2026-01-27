@@ -1,0 +1,26 @@
+﻿@model PostDto
+
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Author</th>
+            <th>Date Published</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <td>@Model.Title</td>
+                <td>@Model.Content</td>
+                <td>@Model.AuthorFullName</td>
+                <td>@Model.CreatedAt.ToString("MM/dd/yyyy")</td>
+                <td><a href="/post/details/@Model.Id">Detay</a></td>
+            </tr>
+        
+    </tbody>
+
+</table>
