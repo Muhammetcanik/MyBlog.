@@ -9,11 +9,31 @@ namespace MyBlog.Business.Concrete
     {
 
         private readonly  IPostDal _postDal;
+        private readonly IAuthService _authService; 
 
-        public PostManager(IPostDal postDal)
+        public PostManager(IPostDal postDal , IAuthService authService)
         {
             _postDal = postDal;
+            _authService = authService;
         }
+
+        public bool AddPost(PostAddDto dto)
+        {
+            return _postDal.Add(new()
+            {
+                Title = dto.Title,
+                Content = dto.Content,
+                CreatedDate = DateTime.Now
+                
+
+
+            });
+
+
+
+
+        }
+
         public List<PostDto> GetAllPosts()
         {
             return _postDal.PostsWithAuthors().Select(x => new PostDto()
@@ -42,6 +62,20 @@ namespace MyBlog.Business.Concrete
 
             };
 
+        }
+
+        public bool UpdatePost(PostUpdateDto dto)
+        {
+            Post post = _postDal.Get(x => x.Id == dto.Id);
+
+            if (post == null)
+                return false;
+
+            post.Title = dto.Title;
+            post.Content = dto.Content;
+            return _postDal.Update(post);
+
+           
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿
+@model PostAddDto
+
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All">
+    </div>
+    <input placeholder="Title" asp-for="@Model.Title" /> <br />
+    <input placeholder="Content" asp-for="@Model.Content" /> <br />
+    <input type="hidden" value="@User.Identity.Name" /> <br />
+
+
+    <button>Ekle</button>
+
+
+</form>

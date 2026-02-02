@@ -13,5 +13,8 @@ namespace MyBlog.Business.Abstract
 
         PostDto GetPostById(Guid id);
 
+        bool UpdatePost(PostUpdateDto dto);
+
+        bool AddPost(PostAddDto dto);
     }
 }
