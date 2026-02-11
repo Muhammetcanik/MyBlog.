@@ -58,11 +58,9 @@ namespace MyBlog.WebUI.Controllers
         [Authorize(Roles = "author")]
         [HttpPost]
         public IActionResult Create(PostAddDto postAdd)
-        { 
-        
-            return View();
+        => _postService.AddPost(postAdd) ? RedirectToAction("Index") : View(postAdd); // ekleme başarılıysa liste sayfasına yönlendir, başarısızsa aynı sayfada kal
 
-        }
+
 
         // 1 olarak controllerde create açarız önce getını sonra postunu , sonra DTO da class oluştururuz
         //PostAddDto gibi ordan kullanıcının görmek istediklerini gireriz

@@ -114,5 +114,6 @@ public class AuthManager : IAuthService
         return await _userManager.AddToRoleAsync(appUser, role);
     }
 
-    
+    public AppUser GetUser(string userName)
+    => _userManager.Users.FirstOrDefault(x => x.UserName == userName);
 }

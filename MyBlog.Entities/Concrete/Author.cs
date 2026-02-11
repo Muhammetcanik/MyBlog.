@@ -15,6 +15,7 @@ namespace MyBlog.Entities.Concrete
         //Navigation Properties
         // Bir yazarın bir kullanıcısı olur
 
+       
         public AppUser? AppUser { get; set; }
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();

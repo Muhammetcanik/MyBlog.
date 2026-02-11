@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Identity;
 using MyBlog.Business.Concrete.DTOs;
+using MyBlog.Entities.Concrete;
 
 namespace MyBlog.Business.Abstract
 {
@@ -13,6 +14,9 @@ namespace MyBlog.Business.Abstract
         Task<SignInResult> LoginAsync(LoginDto loginDto);
 
         Task LogoutAsync();
+
+
+        AppUser GetUser(string userName);
 
 
 

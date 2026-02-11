@@ -1,4 +1,5 @@
-﻿using MyBlog.Business.Abstract;
+﻿using Microsoft.AspNetCore.Builder;
+using MyBlog.Business.Abstract;
 using MyBlog.Business.Concrete.DTOs;
 using MyBlog.DataAccess.Abstract;
 using MyBlog.Entities.Concrete;
@@ -19,12 +20,17 @@ namespace MyBlog.Business.Concrete
 
         public bool AddPost(PostAddDto dto)
         {
+           var user = _authService.GetUser(dto.UserName);
+            if (user == null)
+                return false;
             return _postDal.Add(new()
             {
                 Title = dto.Title,
                 Content = dto.Content,
-                CreatedDate = DateTime.Now
-                
+                CreatedDate = DateTime.Now,
+                Id = Guid.NewGuid(),
+                AuthorId = user.Id
+
 
 
             });
