@@ -20,4 +20,10 @@
     <ProjectReference Include="..\MyBlog.DataAccess\MyBlog.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Author\Data\" />
+    <Folder Include="Areas\Author\Models\" />
+    <Folder Include="Areas\Author\Views\" />
+  </ItemGroup>
+
 </Project>

@@ -16,7 +16,7 @@ namespace MyBlog.Business.Concrete.DTOs
 
         public string AuthorFullName { get; set; } = null!;
 
-
+        
 
     }
 }

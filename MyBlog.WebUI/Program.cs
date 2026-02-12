@@ -52,9 +52,18 @@ namespace MyBlog.WebUI
             app.UseAuthentication(); // kimlik
             app.UseAuthorization(); // yetki
 
+           
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Auth}/{action=Register}/{id?}"); // Authcontrolden baþlasýn register aksiyonu ile devam eder yolu bu þekilde belirledik.
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Account}/{action=Register}/{id?}"
+                );
+            });
 
             app.Run();
         }
