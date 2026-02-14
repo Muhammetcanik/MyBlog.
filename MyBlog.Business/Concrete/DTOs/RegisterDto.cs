@@ -19,6 +19,8 @@ namespace MyBlog.Business.Concrete.DTOs
 
         public string PhoneNumber { get; set; } = null!;
 
+        public DateTime BirthDate { get; set; }
+
 
 
     }

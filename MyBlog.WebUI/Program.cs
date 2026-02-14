@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Business.Abstract;
+using MyBlog.Business.Concrete;
+using MyBlog.DataAccess.Abstract;
+using MyBlog.DataAccess.Concrete;
 using MyBlog.DataAccess.Concrete.Contexts;
 using MyBlog.Entities.Concrete;
 
@@ -19,7 +22,10 @@ namespace MyBlog.WebUI
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             //container
-            builder.Services.AddScoped<IAuthService,AuthManager>();
+            builder.Services.AddScoped<IAuthService, AuthManager>();
+            builder.Services.AddScoped<IAuthorDal, AuthorDal>();      // ? BUNU EKLE!
+            builder.Services.AddScoped<IPostDal, PostDal>();          // ? Bunu da ekle (PostManager için)
+            
 
             builder.Services.AddDbContext<MyBlogDbContext>(x => x.UseSqlServer(connectionString));
 
@@ -38,6 +44,10 @@ namespace MyBlog.WebUI
             ).AddEntityFrameworkStores<MyBlogDbContext>(); //sað týklayýp add reference to myblog data base yapýldý
             //data base baðlamak için
 
+            builder.Services.AddScoped<IAuthService, AuthManager>();
+            builder.Services.AddScoped<IPostService, PostManager>();
+           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -49,23 +59,27 @@ namespace MyBlog.WebUI
 
             app.UseRouting();
 
-            app.UseAuthentication(); // kimlik
-            app.UseAuthorization(); // yetki
-
-           
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Auth}/{action=Register}/{id?}"); // Authcontrolden baþlasýn register aksiyonu ile devam eder yolu bu þekilde belirledik.
+            app.UseAuthentication(); // kimlik doðrulama
+            app.UseAuthorization(); // yetkilendirme
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                   name: "areas",
-                  pattern: "{area:exists}/{controller=Account}/{action=Register}/{id?}"
+                  pattern: "{area:alpha}/{controller=Account}/{action=Register}/{id?}"
                 );
             });
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Account}/{action=Register}/{id?}"); // Authcontrolden baþlasýn register aksiyonu ile devam eder yolu bu þekilde belirledik.
+
+
+
+
 
             app.Run();
         }
     }
 }
+

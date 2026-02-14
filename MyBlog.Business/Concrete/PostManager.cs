@@ -23,13 +23,16 @@ namespace MyBlog.Business.Concrete
            var user = _authService.GetUser(dto.UserName);
             if (user == null)
                 return false;
+            if (user.Author == null)  // ✅ Yazar kontrolü
+                return false;
             return _postDal.Add(new()
             {
+                Id = Guid.NewGuid(),
                 Title = dto.Title,
                 Content = dto.Content,
                 CreatedDate = DateTime.Now,
-                Id = Guid.NewGuid(),
-                AuthorId = user.Id
+                IsActive = true,
+                AuthorId = user.Author.Id  
 
 
 

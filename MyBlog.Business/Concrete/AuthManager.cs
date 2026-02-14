@@ -1,11 +1,17 @@
 ﻿
+//using Microsoft.AspNetCore.Identity;
+//using MyBlog.Business.Abstract;
+//using MyBlog.Business.Concrete.DTOs;
+//using MyBlog.Entities.Concrete;
+//using System.Threading.Tasks;
+//using System.Xml.Linq;
+
 using Microsoft.AspNetCore.Identity;
 using MyBlog.Business.Abstract;
 using MyBlog.Business.Concrete.DTOs;
+using MyBlog.DataAccess.Abstract;  // ✅ IAuthorDal için
 using MyBlog.Entities.Concrete;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
+using Microsoft.EntityFrameworkCore;  // ✅ Include için
 
 public class AuthManager : IAuthService
 {
@@ -13,13 +19,15 @@ public class AuthManager : IAuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager; // giriş için bunların hepsi paketten geliyor.
+    private readonly IAuthorDal _authorDal;
 
-    
-    public AuthManager(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager)
+    public AuthManager(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IAuthorDal authorDal)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
+        _authorDal = authorDal;
+        _authorDal = authorDal;
     }
 
     //üyelik ekleme
@@ -56,12 +64,14 @@ public class AuthManager : IAuthService
 
             var author = new Author
             {
+                Id = appUser.Id,
                 BirthDate = authorAddDto.BirthDate,
                 FullName = $"{registerDto.FirstName} - {registerDto.LastName}",
 
                 CreatedDate = DateTime.Now,
                 IsActive = true,
             };
+            _authorDal.Add(author);
 
             result = await AddRoleToUser(appUser, "author");
 
