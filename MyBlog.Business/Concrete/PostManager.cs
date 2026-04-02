@@ -23,7 +23,7 @@ namespace MyBlog.Business.Concrete
            var user = _authService.GetUser(dto.UserName);
             if (user == null)
                 return false;
-            if (user.Author == null)  // ✅ Yazar kontrolü
+            if (user.Author == null)  
                 return false;
             return _postDal.Add(new()
             {

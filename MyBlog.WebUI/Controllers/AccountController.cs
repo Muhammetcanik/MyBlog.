@@ -26,7 +26,7 @@ namespace MyBlog.WebUI.Controllers
             var result = await _authService.LoginAsync(loginDto);
 
             if (result.Succeeded)
-                return RedirectToAction("Index", "Post");
+                return RedirectToAction("Create", "Post");
 
             return View(loginDto); // başarısızsa kendi içine bassın
 

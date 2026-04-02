@@ -8,6 +8,7 @@ namespace MyBlog.Business.Concrete.DTOs
 {
     public class RegisterDto
     {
+        // Kullanıcı kayıt işlemi yaparken göreceği bilgiler
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;

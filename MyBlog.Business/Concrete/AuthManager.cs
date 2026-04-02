@@ -9,16 +9,19 @@
 using Microsoft.AspNetCore.Identity;
 using MyBlog.Business.Abstract;
 using MyBlog.Business.Concrete.DTOs;
-using MyBlog.DataAccess.Abstract;  // ✅ IAuthorDal için
+using MyBlog.DataAccess.Abstract;  
 using MyBlog.Entities.Concrete;
-using Microsoft.EntityFrameworkCore;  // ✅ Include için
+
 
 public class AuthManager : IAuthService
 {
+    //Identity paketini yüklediğimizde AppUser , AppRole  , UserManager , RoleManager gibi sınıflar otomatik gelir.
+    //Entity kısmında AppUser, AppRole  , UserManager , RoleManager sınıflarını oluşturduk ve IdentityUser , IdentityRole sınıflarından kalıtım aldık. Bu sınıflar Identity paketinden geliyor.
+    // yani paketten gelenleri hamgi sınıfta kullanacaksak içerisina alırız örneğin : private readonly UserManager<AppUser> _userManager;
     //depenndency ınjection
-    private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<AppRole> _roleManager;
-    private readonly SignInManager<AppUser> _signInManager; // giriş için bunların hepsi paketten geliyor.
+    private readonly UserManager<AppUser> _userManager; // kullanıcı yönetimi ekleme silme güncelleme
+    private readonly RoleManager<AppRole> _roleManager; // rol yönetimi için rol atama
+    private readonly SignInManager<AppUser> _signInManager; // giriş çıkış için bunların hepsi paketten geliyor.
     private readonly IAuthorDal _authorDal;
 
     public AuthManager(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IAuthorDal authorDal)
@@ -27,7 +30,7 @@ public class AuthManager : IAuthService
         _roleManager = roleManager;
         _signInManager = signInManager;
         _authorDal = authorDal;
-        _authorDal = authorDal;
+        
     }
 
     //üyelik ekleme

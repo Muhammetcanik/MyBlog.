@@ -23,9 +23,10 @@ namespace MyBlog.WebUI
 
             //container
             builder.Services.AddScoped<IAuthService, AuthManager>();
+            builder.Services.AddScoped<IPostService, PostManager>();
             builder.Services.AddScoped<IAuthorDal, AuthorDal>();      // ? BUNU EKLE!
-            builder.Services.AddScoped<IPostDal, PostDal>();          // ? Bunu da ekle (PostManager için)
-            
+            builder.Services.AddScoped<IConmmentDal, CommentDal>();          // ? Bunu da ekle (PostManager için)
+            builder.Services.AddScoped<IPostDal, PostDal>();
 
             builder.Services.AddDbContext<MyBlogDbContext>(x => x.UseSqlServer(connectionString));
 
