@@ -6,6 +6,7 @@ using MyBlog.DataAccess.Concrete;
 using MyBlog.DataAccess.Concrete.Contexts;
 using MyBlog.Entities.Concrete;
 
+
 namespace MyBlog.WebUI
 {
     public class Program
@@ -47,7 +48,11 @@ namespace MyBlog.WebUI
 
             builder.Services.AddScoped<IAuthService, AuthManager>();
             builder.Services.AddScoped<IPostService, PostManager>();
-           
+
+            
+
+          
+
 
             var app = builder.Build();
 

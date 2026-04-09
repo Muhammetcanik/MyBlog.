@@ -9,7 +9,8 @@
 using Microsoft.AspNetCore.Identity;
 using MyBlog.Business.Abstract;
 using MyBlog.Business.Concrete.DTOs;
-using MyBlog.DataAccess.Abstract;  
+using MyBlog.DataAccess.Abstract;
+using MyBlog.DataAccess.Concrete;
 using MyBlog.Entities.Concrete;
 
 
@@ -23,6 +24,7 @@ public class AuthManager : IAuthService
     private readonly RoleManager<AppRole> _roleManager; // rol yönetimi için rol atama
     private readonly SignInManager<AppUser> _signInManager; // giriş çıkış için bunların hepsi paketten geliyor.
     private readonly IAuthorDal _authorDal;
+    
 
     public AuthManager(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IAuthorDal authorDal)
     {
@@ -31,6 +33,7 @@ public class AuthManager : IAuthService
         _signInManager = signInManager;
         _authorDal = authorDal;
         
+
     }
 
     //üyelik ekleme
@@ -58,7 +61,7 @@ public class AuthManager : IAuthService
         if (result.Succeeded)
         {
 
-           await  _userManager.AddPasswordAsync(appUser,registerDto.Password);
+          result = await  _userManager.AddPasswordAsync(appUser,registerDto.Password);
             
         }
 
@@ -69,12 +72,12 @@ public class AuthManager : IAuthService
             {
                 Id = appUser.Id,
                 BirthDate = authorAddDto.BirthDate,
-                FullName = $"{registerDto.FirstName} - {registerDto.LastName}",
-
+                FullName = $"{registerDto.FirstName} {registerDto.LastName}",
                 CreatedDate = DateTime.Now,
                 IsActive = true,
             };
             _authorDal.Add(author);
+            
 
             result = await AddRoleToUser(appUser, "author");
 

@@ -26,7 +26,7 @@ namespace MyBlog.WebUI.Controllers
             var result = await _authService.LoginAsync(loginDto);
 
             if (result.Succeeded)
-                return RedirectToAction("Create", "Post");
+                return RedirectToAction("Create", "Post"); //1 değişti Index post
 
             return View(loginDto); // başarısızsa kendi içine bassın
 
@@ -41,21 +41,25 @@ namespace MyBlog.WebUI.Controllers
             return View();
         }
 
+
+
         [HttpPost]
 
-        public async Task<IActionResult> Register(RegisterDto registerDto) 
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
 
-           var result = await _authService.RegisterAsync(registerDto);
+            var result = await _authService.RegisterAsync(registerDto);
 
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(Login)); 
+                return RedirectToAction(nameof(Login));
             }
             return View(registerDto); // eğer başarısızsa kendi içine bassın
 
 
         }
+
+      
 
         public async Task<IActionResult> Logout()
         {

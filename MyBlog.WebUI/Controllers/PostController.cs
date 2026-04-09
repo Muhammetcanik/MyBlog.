@@ -47,7 +47,7 @@ namespace MyBlog.WebUI.Controllers
             return RedirectToAction(nameof(Index)); // güncelleme başarılıysa liste sayfasına yönlendir
         }
 
-        [Authorize(Roles = "author")]
+        //[Authorize(Roles = "author")]
         public IActionResult Create()
         {
 
@@ -58,7 +58,12 @@ namespace MyBlog.WebUI.Controllers
         [Authorize(Roles = "author")]
         [HttpPost]
         public IActionResult Create(PostAddDto postAdd)
-        => _postService.AddPost(postAdd) ? RedirectToAction("Index") : View(postAdd); // ekleme başarılıysa liste sayfasına yönlendir, başarısızsa aynı sayfada kal
+        {
+            postAdd.UserName = User.Identity.Name; // post eklerken kullanıcı adını da eklemek için, User.Identity.Name ile şu anki kullanıcının adını alıyoruz.
+
+            return _postService.AddPost(postAdd) ? RedirectToAction("Index") : View(postAdd); // ekleme başarılıysa liste sayfasına yönlendir, başarısızsa aynı sayfada kal
+        }
+        
 
 
 
