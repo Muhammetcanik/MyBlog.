@@ -2,7 +2,7 @@
 using MyBlog.DataAccess.Abstract;
 using MyBlog.DataAccess.Concrete.Contexts;
 using MyBlog.Entities.Concrete;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace MyBlog.DataAccess.Concrete

@@ -12,6 +12,8 @@ using MyBlog.Business.Concrete.DTOs;
 using MyBlog.DataAccess.Abstract;
 using MyBlog.DataAccess.Concrete;
 using MyBlog.Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
+
 
 
 public class AuthManager : IAuthService
@@ -85,7 +87,16 @@ public class AuthManager : IAuthService
 
         else
         {
-            result = await AddRoleToUser(appUser,"user");
+            var author = new Author
+            {
+                Id = appUser.Id,
+                BirthDate = DateTime.Now,
+                FullName = $"{registerDto.FirstName} {registerDto.LastName}",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            };
+            _authorDal.Add(author);
+            result = await AddRoleToUser(appUser, "author");
         }
 
         return result;
@@ -130,6 +141,13 @@ public class AuthManager : IAuthService
         return await _userManager.AddToRoleAsync(appUser, role);
     }
 
+    //public AppUser GetUser(string userName)
+    //=> _userManager.Users.FirstOrDefault(x=>x.UserName == userName);
+
     public AppUser GetUser(string userName)
-    => _userManager.Users.FirstOrDefault(x => x.UserName == userName);
+    {
+        return _userManager.Users
+            .Include(x => x.Author)
+            .FirstOrDefault(x => x.UserName == userName);
+    }
 }

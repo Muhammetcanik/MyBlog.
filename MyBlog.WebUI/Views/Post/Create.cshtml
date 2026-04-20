@@ -5,6 +5,6 @@
     </div>
     <input placeholder="Title" asp-for="@Model.Title" /> <br />
     <input placeholder="Content" asp-for="@Model.Content" /> <br />
-    <input type="hidden" value="@User.Identity.Name" /> <br />
+   <input type="hidden" asp-for="UserName" value="@User.Identity.Name" />
     <button>Ekle</button>
 </form>

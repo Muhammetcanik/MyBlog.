@@ -27,7 +27,7 @@ namespace MyBlog.WebUI.Areas.Author.Controllers
         {
             var result = await _authService.LoginAsync(loginDto); // LoginAsync metodu async olduğu için beklememiz gerekiyor. 
             return result.Succeeded ? RedirectToAction("Index", "Create") : View(loginDto); // login başarılıysa anasayfaya yönlendir, başarısızsa aynı sayfada kal ve loginDto'yu geri gönder.
-            return View();
+            
 
         }
 
