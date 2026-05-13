@@ -9,6 +9,7 @@ namespace MyBlog.Business.Abstract
 {
    public interface ICommentService
     {
+        List<CommentDto> GetComments();
         List<CommentDto> GetCommentsByPostId(Guid postId);  
 
     }
