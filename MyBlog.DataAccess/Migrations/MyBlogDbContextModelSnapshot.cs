@@ -299,6 +299,9 @@ namespace MyBlog.DataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -306,6 +309,8 @@ namespace MyBlog.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -404,7 +409,7 @@ namespace MyBlog.DataAccess.Migrations
                     b.HasOne("MyBlog.Entities.Concrete.AppUser", "AppUser")
                         .WithOne("Author")
                         .HasForeignKey("MyBlog.Entities.Concrete.Author", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -412,6 +417,12 @@ namespace MyBlog.DataAccess.Migrations
 
             modelBuilder.Entity("MyBlog.Entities.Concrete.Comment", b =>
                 {
+                    b.HasOne("MyBlog.Entities.Concrete.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("MyBlog.Entities.Concrete.AppUser", "AppUser")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
@@ -419,6 +430,8 @@ namespace MyBlog.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("MyBlog.Entities.Concrete.Post", b =>
@@ -442,6 +455,11 @@ namespace MyBlog.DataAccess.Migrations
             modelBuilder.Entity("MyBlog.Entities.Concrete.Author", b =>
                 {
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("MyBlog.Entities.Concrete.Post", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

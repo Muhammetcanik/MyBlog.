@@ -8,10 +8,12 @@ namespace MyBlog.Business.Concrete.DTOs
 {
     public class CommentDto
     {
-
+        public Guid UserId { get; set; }
         public Guid CommentId { get; set; }
 
-        public string UserName { get; set; } = null!;
+        public Guid PostId { get; set; }
+
+        
 
         public string Content { get; set; } = null!;
 

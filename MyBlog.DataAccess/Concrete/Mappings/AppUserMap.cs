@@ -9,13 +9,17 @@ namespace MyBlog.DataAccess.Concrete.Mappings
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder.HasMany(x => x.Comments)
-                .WithOne(x =>x.AppUser)
-                .HasForeignKey(x => x.UserId);
+            //builder.HasMany(x => x.Comments)
+            //    .WithOne(x => x.AppUser)
+            //    .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(x => x.Author)
-                .WithOne(x => x.AppUser)
-                .HasForeignKey<Author>(x => x.Id);
+            builder.HasMany(x => x.Comments).WithOne(x => x.AppUser).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+
+            //builder.HasOne(x => x.Author)
+            //    .WithOne(x => x.AppUser)
+            //    .HasForeignKey<Author>(x => x.Id).OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(x => x.Author).WithOne(x => x.AppUser).HasForeignKey<Author>(x => x.Id).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

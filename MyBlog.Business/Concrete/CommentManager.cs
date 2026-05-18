@@ -22,7 +22,15 @@ namespace MyBlog.Business.Concrete
 
         public List<CommentDto> GetComments()
         {
-            throw new NotImplementedException();
+            return _commentDal.GettAll().Select(c => new CommentDto
+            {
+                CommentId = c.Id,
+                PostId = c.PostId,
+                Content = c.Content,
+                UserId = c.UserId
+
+            })
+                .ToList();
         }
 
         public List<CommentDto> GetCommentsByPostId(Guid postId)
